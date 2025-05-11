@@ -1,0 +1,127 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5ysshgyhnr6v"]
+
+[ext_resource type="Script" uid="uid://dd6031dr86ixp" path="res://src/scenes/gui.gd" id="1_80edf"]
+[ext_resource type="Script" uid="uid://qnaquas16c3" path="res://src/ai/GameInterface.cs" id="4_b8iy7"]
+[ext_resource type="Script" uid="uid://bnyypccdwevp8" path="res://src/scenes/debug_ui.gd" id="4_dpbna"]
+[ext_resource type="PackedScene" uid="uid://c1cjw0xqwxxjj" path="res://src/scenes/info_board.tscn" id="4_rjj2s"]
+[ext_resource type="Script" uid="uid://hmcsbcr8srtv" path="res://src/scenes/audio_stream_player.gd" id="5_rjj2s"]
+
+[node name="GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_80edf")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("5_rjj2s")
+
+[node name="GameInterface" type="Node" parent="."]
+script = ExtResource("4_b8iy7")
+
+[node name="Background" type="ColorRect" parent="."]
+z_index = -5
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.993
+offset_bottom = -0.384033
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.41, 0.28741, 0.0902, 1)
+
+[node name="BattleContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BattleContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="BattleContainer/VBoxContainer"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="BattleContainer/VBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Chessboard" type="ColorRect" parent="BattleContainer/VBoxContainer/AspectRatioContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_direction = 2
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.264573, 0.179604, 0.182845, 1)
+
+[node name="BoardGrid" type="GridContainer" parent="BattleContainer/VBoxContainer/AspectRatioContainer/MarginContainer/Chessboard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 8
+
+[node name="InfoBoard" parent="BattleContainer" instance=ExtResource("4_rjj2s")]
+layout_mode = 2
+
+[node name="DebugUI" type="VBoxContainer" parent="BattleContainer"]
+custom_minimum_size = Vector2(60, 49)
+layout_mode = 2
+script = ExtResource("4_dpbna")
+
+[node name="Button" type="Button" parent="BattleContainer/DebugUI"]
+layout_mode = 2
+text = "Setup Board"
+
+[node name="AIBattleButton" type="Button" parent="BattleContainer/DebugUI"]
+layout_mode = 2
+text = "AI Battle"
+
+[node name="Undo" type="Button" parent="BattleContainer/DebugUI"]
+layout_mode = 2
+text = "Undo"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BattleContainer/DebugUI"]
+layout_mode = 2
+fit_content = true
+
+[node name="TextEdit" type="TextEdit" parent="BattleContainer/DebugUI"]
+custom_minimum_size = Vector2(200, 300)
+layout_mode = 2
+text = "HELLO"
+placeholder_text = "yo"
+editable = false
+emoji_menu_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+empty_selection_clipboard_enabled = false
+
+[node name="GoToArmySetupButton" type="Button" parent="BattleContainer/DebugUI"]
+layout_mode = 2
+text = "Army Setup"
+
+[connection signal="ready" from="BattleContainer/VBoxContainer/AspectRatioContainer/MarginContainer/Chessboard/BoardGrid" to="." method="_on_board_grid_ready"]
+[connection signal="pressed" from="BattleContainer/DebugUI/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="BattleContainer/DebugUI/AIBattleButton" to="." method="_on_ai_battle_button_pressed"]
+[connection signal="pressed" from="BattleContainer/DebugUI/Undo" to="." method="_on_undo_pressed"]
+[connection signal="pressed" from="BattleContainer/DebugUI/GoToArmySetupButton" to="." method="_on_go_to_army_setup_button_pressed"]

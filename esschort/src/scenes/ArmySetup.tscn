@@ -1,0 +1,96 @@
+[gd_scene load_steps=5 format=3 uid="uid://biyy4w31r210d"]
+
+[ext_resource type="Script" uid="uid://b68k3af2oef2g" path="res://src/scenes/ArmySetup.gd" id="1_bnkaf"]
+[ext_resource type="PackedScene" uid="uid://c1cjw0xqwxxjj" path="res://src/scenes/info_board.tscn" id="1_cgoij"]
+[ext_resource type="Script" uid="uid://dp3k5ijk04fca" path="res://src/scenes/PieceDraft.gd" id="2_r4jrn"]
+[ext_resource type="Script" uid="uid://sfq7e15yrh5t" path="res://src/scenes/army_preview.gd" id="5_pwv57"]
+
+[node name="ArmySetup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bnkaf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="PieceDraft" type="ItemList" parent="HBoxContainer/VBoxContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/v_separation = 0
+theme_override_constants/h_separation = 0
+max_columns = 5
+fixed_icon_size = Vector2i(60, 60)
+script = ExtResource("2_r4jrn")
+
+[node name="ArmyPreview" type="GridContainer" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 120)
+layout_mode = 2
+mouse_filter = 0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 8
+script = ExtResource("5_pwv57")
+
+[node name="InfoBoard" parent="HBoxContainer" instance=ExtResource("1_cgoij")]
+custom_minimum_size = Vector2(140, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BattleButton" type="Button" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Battle"
+
+[node name="ValueDisplay" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Army Value: 398 / 500"
+autowrap_mode = 3
+
+[node name="HFlowContainer" type="HFlowContainer" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="QuickSwap" type="ItemList" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+auto_height = true
+wraparound_items = false
+item_count = 5
+max_columns = 5
+fixed_column_width = 15
+item_0/text = "1"
+item_1/text = "2"
+item_2/text = "3"
+item_3/text = "4"
+item_4/text = "5"
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/PieceDraft" to="." method="_on_piece_draft_item_selected"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/BattleButton" to="." method="_on_battle_button_pressed"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer2/QuickSwap" to="." method="_on_quick_swap_item_selected"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca33n3vwwbjij"]
+
+[ext_resource type="Script" uid="uid://c1cw3erbj4vgk" path="res://src/scenes/piece.gd" id="1_hisf2"]
+[ext_resource type="Texture2D" uid="uid://lvnd4gxxbcdw" path="res://pieces/01_classic/b-bishop.png" id="2_sk825"]
+
+[node name="Piece" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hisf2")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_sk825")
+expand_mode = 1

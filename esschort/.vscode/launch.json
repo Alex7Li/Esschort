@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "test",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "/home/alex-li/Documents/Godot_v4.4-stable_mono_linux_x86_64/Godot_v4.4-stable_mono_linux.x86_64",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "requireExactSource": false
+        }
+    ]
+}
